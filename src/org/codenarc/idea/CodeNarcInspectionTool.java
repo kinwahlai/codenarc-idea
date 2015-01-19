@@ -30,7 +30,6 @@ import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.LocalInspectionTool;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
-import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.util.Key;
@@ -38,9 +37,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiErrorElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.psi.util.*;
-import org.codenarc.rule.AbstractRule;
 import org.codenarc.rule.Rule;
 import org.codenarc.rule.Violation;
 import org.codenarc.source.SourceCode;
@@ -214,9 +211,10 @@ public abstract class CodeNarcInspectionTool extends LocalInspectionTool {
                                                 ProblemDescriptor descriptor = manager.createProblemDescriptor(
                                                         element,
                                                         message == null ? description == null ? rule.getName() : description : message,
-                                                        ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
+                                                        isOnTheFly,
                                                         null,
-                                                        isOnTheFly);
+                                                        ProblemHighlightType.GENERIC_ERROR_OR_WARNING
+                                                        );
                                                 descriptors.add(descriptor);
                                             }
                                         }
